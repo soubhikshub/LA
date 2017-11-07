@@ -1,7 +1,7 @@
 <html>
 <head>
-<title>
-Importing Log files</title>
+<title>Importing Log files</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 
@@ -23,14 +23,37 @@ if(isset($_POST["submit"])) {
 
 //check if the influxDB is running
 
-	
-	
 ?>
+
+<script>
+$(document).ready(function(){
+
+	var processName="influxd.exe";
+	$.get("checkProcess.php?pn="+processName,function(data,status){
+		if(data.includes("false")){
+			var msgtext=processName+" is currently NOT running in the server";
+			console.log(msgtext);
+			$("#msgDisplay").html(msgtext);
+		}else{
+			var processDetails=data.split(";");
+			console.log("Name="+processDetails[0]+",pid"+processDetails[1]+" is running in the server.");
+			$("#uploadLogForm").show();
+			$("#msgDisplay").html(processName+" is running in the server");
+		}
+	});
+	
+});
+</script>
+
+<div id="msgDisplay"></div>
+<div id="uploadLogForm" style="display:none;">
+
 <form action="#" method="post" enctype="multipart/form-data">
     Select log to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
 </form>
+</div>
 <?php 
 }
 
@@ -44,7 +67,6 @@ if(isset($_POST["submit"])) {
 </div>
 
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function(){
 

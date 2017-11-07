@@ -18,12 +18,25 @@ function checkProcesses($processName){
 		
 		// to check if the input process name is running in the server
 		
+		$returnProcessDetail="";
 		foreach ($task_list as $task){
-			//echo $tasks."<br/>";
-			if($processName==explode(" ",$task)[0]){
-				return $task;
+			$processDetail=explode(" ",$task);
+			if($processName==$processDetail[0]){
+				foreach ($processDetail as $detail){
+					if($detail!=""){ // removing all the blank spaces
+						$returnProcessDetail.=$detail.";";
+					}
+				}	
 			}
 		}
+		
+		if($returnProcessDetail=="") {
+			echo "false";
+		}
+		else {
+			echo $returnProcessDetail;
+		}
+		
 	}
 	
 	
