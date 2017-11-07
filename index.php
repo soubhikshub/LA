@@ -20,6 +20,11 @@ if(isset($_POST["submit"])) {
 	}
 	
 }else{ // else show file uploader
+
+//check if the influxDB is running
+
+	
+	
 ?>
 <form action="#" method="post" enctype="multipart/form-data">
     Select log to upload:

@@ -77,7 +77,7 @@ while(true) {
 
 			$url=$values[3];
 			if(strpos($url,"?")>0){$url=substr($url,0,strpos($url,"?"));} // stripping off the querystring part
-			if(strpos($url,"clientlib")>0){$url=substr($url,0,strpos($url,"."))."...".substr($url,strpos($url,"etc"));} //stripping off the version number part
+			if(strpos($url,"clientlib")>0){$url=substr($url,0,strpos($url,"."))."...".substr($url,strpos($url,"/etc"));} //stripping off the version number part
 			
 		/**/			
 			$influxPostBody="requestLog,id=".$logId
