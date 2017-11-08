@@ -29,18 +29,25 @@ if(isset($_POST["submit"])) {
 $(document).ready(function(){
 
 	var processName="influxd.exe";
-	$.get("checkProcess.php?pn="+processName,function(data,status){
-		if(data.includes("false")){
-			var msgtext=processName+" is currently NOT running in the server";
-			console.log(msgtext);
-			$("#msgDisplay").html(msgtext);
-		}else{
-			var processDetails=data.split(";");
-			console.log("Name="+processDetails[0]+",pid"+processDetails[1]+" is running in the server.");
-			$("#uploadLogForm").show();
-			$("#msgDisplay").html(processName+" is running in the server");
-		}
-	});
+
+	__checkProcesses(processName);
+	function __checkProcesses(processName){
+		$.get("checkProcess.php?pn="+processName,function(data,status){
+			if(data.includes("false")){
+				var msgtext=processName+" is currently NOT running in the server. <br/> To start Influx <a id='__startInflux' href='#'>click here</a>";
+				//console.log(msgtext);
+				$("#msgDisplay").html(msgtext);
+			}else{
+				var processDetails=data.split(";");
+				console.log("Name="+processDetails[0]+",pid"+processDetails[1]+" is running in the server.");
+				$("#uploadLogForm").show();
+				$("#msgDisplay").html(processName+" is running in the server");
+			}
+		});
+	}
+	function __startInflux(){
+		$.get("startInflux.php");
+	}
 	
 });
 </script>
